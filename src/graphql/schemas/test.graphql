@@ -1,0 +1,8 @@
+query codingChallengeMedal($year: Int!, $month: Int!) {
+  dailyChallengeMedal(year: $year, month: $month) {
+    name
+    config {
+      icon
+    }
+  }
+}
