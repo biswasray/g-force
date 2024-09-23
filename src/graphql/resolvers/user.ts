@@ -1,6 +1,13 @@
 import { GraphError } from "../../lib";
 import Models from "../../models";
 import { signToken } from "../../utils";
+async function waitSec(t = 1000) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, t);
+  });
+}
 
 const userResolvers = {
   User: {
@@ -68,7 +75,8 @@ const userResolvers = {
     },
     signIn: async (
       _: any,
-      { email, password }: { email: string; password: string }
+      { email, password }: { email: string; password: string },
+      context: any
     ) => {
       const user = await Models("user").findOne({ email }).populate("role");
       if (!user) {
@@ -85,6 +93,7 @@ const userResolvers = {
       }
 
       const token = signToken(user);
+
       return { token, user };
     },
     updateUser: async (

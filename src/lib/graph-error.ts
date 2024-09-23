@@ -34,7 +34,7 @@ export class GraphError extends GraphQLError {
     const status = ERROR_STATUS_CODES[code];
     super(option?.message ?? code, {
       extensions: {
-        code: "UNAUTHENTICATED",
+        code,
         http: { status },
       },
     });
